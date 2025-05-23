@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:image_picker/image_picker.dart';
 import '../widgets/custom_button.dart';
 
 class DiagnosisResultScreen extends StatelessWidget {

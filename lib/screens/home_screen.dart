@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/base_layout.dart';
+import 'package:provider/provider.dart';
+import '../services/auth_service.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback onThemeToggle;
@@ -10,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final authService = Provider.of<AuthService>(context);
     
     return BaseLayout(
       currentRoute: '/home',
@@ -17,6 +20,11 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Dr. Skin'),
           actions: [
+            if (authService.isAuthenticated)
+              IconButton(
+                icon: const Icon(Icons.person),
+                onPressed: () => Navigator.pushNamed(context, '/doctor_profile'),
+              ),
             IconButton(
               icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
               onPressed: onThemeToggle,
@@ -59,6 +67,31 @@ class HomeScreen extends StatelessWidget {
                 text: 'Upload/Capture Image for Diagnosis',
                 onTap: () => Navigator.pushNamed(context, '/image_upload'),
               ),
+              if (!authService.isAuthenticated) ...[
+                const SizedBox(height: 24),
+                const Divider(),
+                const SizedBox(height: 24),
+                Text(
+                  'For Healthcare Professionals',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.pushNamed(context, '/login'),
+                  icon: const Icon(Icons.medical_services),
+                  label: const Text('Doctor Login'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
