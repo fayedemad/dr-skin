@@ -14,7 +14,6 @@ import 'screens/specialist_registration_screen.dart';
 import 'screens/specialist_profile_management_screen.dart';
 import 'screens/about_screen.dart';
 import 'screens/login_screen.dart';
-import 'screens/doctor_profile_screen.dart';
 import 'services/auth_service.dart';
 
 void main() async {
@@ -69,14 +68,12 @@ class _DrSkinAppState extends State<DrSkinApp> {
         routes: {
           '/': (context) => const SplashScreen(),
           '/login': (context) => const LoginScreen(),
-          '/doctor_profile': (context) => const DoctorProfileScreen(),
           '/home': (context) => HomeScreen(onThemeToggle: _toggleTheme),
           '/image_upload': (context) => const ImageUploadScreen(),
           '/diagnosis_result': (context) => const DiagnosisResultScreen(),
           '/educational_content': (context) => const EducationalContentScreen(),
           '/content_detail': (context) => const ContentDetailScreen(),
           '/specialist_search': (context) => const SpecialistSearchScreen(),
-          '/specialist_profile': (context) => const SpecialistProfileScreen(),
           '/specialist_registration': (context) => const SpecialistRegistrationScreen(),
           '/specialist_profile_management': (context) => const SpecialistProfileManagementScreen(),
           '/about': (context) => const AboutScreen(),

@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             if (authService.isAuthenticated)
               IconButton(
                 icon: const Icon(Icons.person),
-                onPressed: () => Navigator.pushNamed(context, '/doctor_profile'),
+                onPressed: () => Navigator.pushNamed(context, '/specialist_profile'),
               ),
             IconButton(
               icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                 const Divider(),
                 const SizedBox(height: 24),
                 Text(
-                  'For Healthcare Professionals',
+                  'For Healthcare Specialists',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                 OutlinedButton.icon(
                   onPressed: () => Navigator.pushNamed(context, '/login'),
                   icon: const Icon(Icons.medical_services),
-                  label: const Text('Doctor Login'),
+                  label: const Text('Specialist Login'),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,

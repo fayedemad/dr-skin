@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import '../models/doctor.dart';
+import '../models/specialist.dart';
 
 class AuthService extends ChangeNotifier {
-  Doctor? _currentDoctor;
+  Specialist? _currentSpecialist;
   bool _isAuthenticated = false;
 
-  Doctor? get currentDoctor => _currentDoctor;
+  Specialist? get currentSpecialist => _currentSpecialist;
   bool get isAuthenticated => _isAuthenticated;
 
-  // Mock login - accepts any email/password
-  Future<bool> login(String email, String password) async {
+  // Mock login - accepts any phone number
+  Future<bool> login(String phoneNumber) async {
     // Simulate network delay
     await Future.delayed(const Duration(seconds: 1));
 
     // Mock successful login
-    _currentDoctor = Doctor(
+    _currentSpecialist = Specialist(
       id: '1',
       name: 'Dr. John Doe',
-      email: email,
+      phoneNumber: phoneNumber,
       specialization: 'Dermatology',
       licenseNumber: 'MD123456',
-      phoneNumber: '+1234567890',
       hospital: 'City General Hospital',
       bio: 'Experienced dermatologist with over 10 years of practice.',
     );
@@ -30,29 +29,27 @@ class AuthService extends ChangeNotifier {
   }
 
   void logout() {
-    _currentDoctor = null;
+    _currentSpecialist = null;
     _isAuthenticated = false;
     notifyListeners();
   }
 
   Future<bool> updateProfile({
     String? name,
-    String? phoneNumber,
     String? hospital,
     String? bio,
     String? profileImageUrl,
   }) async {
-    if (_currentDoctor == null) return false;
+    if (_currentSpecialist == null) return false;
 
     // Simulate network delay
     await Future.delayed(const Duration(seconds: 1));
 
-    _currentDoctor = _currentDoctor!.copyWith(
+    _currentSpecialist = _currentSpecialist!.copyWith(
       name: name,
-      phoneNumber: phoneNumber,
       hospital: hospital,
       bio: bio,
-      profileImageUrl: profileImageUrl,
+      profileImage: profileImageUrl,
     );
     notifyListeners();
     return true;
