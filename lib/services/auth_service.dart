@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/specialist.dart';
+import 'api.dart';
 
 class AuthService extends ChangeNotifier {
   Specialist? _currentSpecialist;
@@ -8,12 +9,14 @@ class AuthService extends ChangeNotifier {
   Specialist? get currentSpecialist => _currentSpecialist;
   bool get isAuthenticated => _isAuthenticated;
 
-  // Mock login - accepts any phone number
+  // Ready for backend login
   Future<bool> login(String phoneNumber) async {
-    // Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
+    // TODO: Replace with real backend call
+    // Example:
+    // final response = await Api.post('/login', body: {'phone': phoneNumber});
+    // if (response.statusCode == 200) { ... }
 
-    // Mock successful login
+    await Future.delayed(const Duration(seconds: 1));
     _currentSpecialist = Specialist(
       id: '1',
       name: 'Dr. John Doe',
@@ -34,23 +37,11 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> updateProfile({
-    String? name,
-    String? hospital,
-    String? bio,
-    String? profileImageUrl,
-  }) async {
+  Future<bool> updateProfile(Specialist updatedSpecialist) async {
     if (_currentSpecialist == null) return false;
-
-    // Simulate network delay
+    // TODO: Replace with real backend call
     await Future.delayed(const Duration(seconds: 1));
-
-    _currentSpecialist = _currentSpecialist!.copyWith(
-      name: name,
-      hospital: hospital,
-      bio: bio,
-      profileImage: profileImageUrl,
-    );
+    _currentSpecialist = updatedSpecialist;
     notifyListeners();
     return true;
   }

@@ -137,12 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () {
-                    // TODO: Implement registration functionality
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Registration functionality coming soon'),
-                      ),
-                    );
+                    Navigator.pushNamed(context, '/specialist_registration');
                   },
                   child: const Text('New Specialist? Register here'),
                 ),
