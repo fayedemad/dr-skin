@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'theme/app_theme.dart';
 import 'screens/splash_screen.dart';
 import 'screens/home_screen.dart';
@@ -12,6 +13,9 @@ import 'screens/specialist_profile_screen.dart';
 import 'screens/specialist_registration_screen.dart';
 import 'screens/specialist_profile_management_screen.dart';
 import 'screens/about_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/doctor_profile_screen.dart';
+import 'services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,26 +57,31 @@ class _DrSkinAppState extends State<DrSkinApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Dr. Skin',
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => SplashScreen(),
-        '/home': (context) => HomeScreen(onThemeToggle: _toggleTheme),
-        '/image_upload': (context) => ImageUploadScreen(),
-        '/diagnosis_result': (context) => DiagnosisResultScreen(),
-        '/educational_content': (context) => EducationalContentScreen(),
-        '/content_detail': (context) => ContentDetailScreen(),
-        '/specialist_search': (context) => SpecialistSearchScreen(),
-        '/specialist_profile': (context) => SpecialistProfileScreen(),
-        '/specialist_registration': (context) => SpecialistRegistrationScreen(),
-        '/specialist_profile_management': (context) => SpecialistProfileManagementScreen(),
-        '/about': (context) => AboutScreen(),
-      },
+    return ChangeNotifierProvider(
+      create: (_) => AuthService(),
+      child: MaterialApp(
+        title: 'Dr. Skin',
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/doctor_profile': (context) => const DoctorProfileScreen(),
+          '/home': (context) => HomeScreen(onThemeToggle: _toggleTheme),
+          '/image_upload': (context) => const ImageUploadScreen(),
+          '/diagnosis_result': (context) => const DiagnosisResultScreen(),
+          '/educational_content': (context) => const EducationalContentScreen(),
+          '/content_detail': (context) => const ContentDetailScreen(),
+          '/specialist_search': (context) => const SpecialistSearchScreen(),
+          '/specialist_profile': (context) => const SpecialistProfileScreen(),
+          '/specialist_registration': (context) => const SpecialistRegistrationScreen(),
+          '/specialist_profile_management': (context) => const SpecialistProfileManagementScreen(),
+          '/about': (context) => const AboutScreen(),
+        },
+      ),
     );
   }
 }
