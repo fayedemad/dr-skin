@@ -47,6 +47,9 @@ class _BaseLayoutState extends State<BaseLayout> {
       case '/specialist_registration':
         _selectedIndex = 3;
         break;
+      case '/specialist_profile':
+        _selectedIndex = 0; // Keep the home tab selected when viewing profile
+        break;
       default:
         _selectedIndex = 0;
     }
@@ -66,7 +69,7 @@ class _BaseLayoutState extends State<BaseLayout> {
         Navigator.pushReplacementNamed(context, '/specialist_search');
         break;
       case 3:
-        Navigator.pushReplacementNamed(context, '/specialist_registration');
+        Navigator.pushNamed(context, '/specialist_registration');
         break;
     }
   }

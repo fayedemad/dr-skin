@@ -6,20 +6,25 @@ class SpecialistListTile extends StatelessWidget {
   final VoidCallback onTap;
 
   const SpecialistListTile({
+    Key? key,
     required this.specialist,
     required this.onTap,
-    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(
-        child: Icon(Icons.person),
+      leading: CircleAvatar(
+        backgroundImage: (specialist.profileImage != null && specialist.profileImage!.isNotEmpty)
+            ? NetworkImage(specialist.profileImage!)
+            : null,
+        child: (specialist.profileImage == null || specialist.profileImage!.isEmpty)
+            ? const Icon(Icons.person)
+            : null,
       ),
-      title: Text(specialist.name, style: const TextStyle(fontWeight: FontWeight.w600)),
-      subtitle: Text('${specialist.specialty} • ${specialist.location}'),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+      title: Text(specialist.name),
+      subtitle: Text('${specialist.specialization} • ${specialist.hospital}'),
+      trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );
   }

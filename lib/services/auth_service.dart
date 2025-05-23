@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import '../models/doctor.dart';
+import '../models/specialist.dart';
+import 'api.dart';
 
 class AuthService extends ChangeNotifier {
-  Doctor? _currentDoctor;
+  Specialist? _currentSpecialist;
   bool _isAuthenticated = false;
 
-  Doctor? get currentDoctor => _currentDoctor;
+  Specialist? get currentSpecialist => _currentSpecialist;
   bool get isAuthenticated => _isAuthenticated;
 
-  // Mock login - accepts any email/password
-  Future<bool> login(String email, String password) async {
-    // Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
+  // Ready for backend login
+  Future<bool> login(String phoneNumber) async {
+    // TODO: Replace with real backend call
+    // Example:
+    // final response = await Api.post('/login', body: {'phone': phoneNumber});
+    // if (response.statusCode == 200) { ... }
 
-    // Mock successful login
-    _currentDoctor = Doctor(
+    await Future.delayed(const Duration(seconds: 1));
+    _currentSpecialist = Specialist(
       id: '1',
       name: 'Dr. John Doe',
-      email: email,
+      phoneNumber: phoneNumber,
       specialization: 'Dermatology',
       licenseNumber: 'MD123456',
-      phoneNumber: '+1234567890',
       hospital: 'City General Hospital',
       bio: 'Experienced dermatologist with over 10 years of practice.',
     );
@@ -30,30 +32,16 @@ class AuthService extends ChangeNotifier {
   }
 
   void logout() {
-    _currentDoctor = null;
+    _currentSpecialist = null;
     _isAuthenticated = false;
     notifyListeners();
   }
 
-  Future<bool> updateProfile({
-    String? name,
-    String? phoneNumber,
-    String? hospital,
-    String? bio,
-    String? profileImageUrl,
-  }) async {
-    if (_currentDoctor == null) return false;
-
-    // Simulate network delay
+  Future<bool> updateProfile(Specialist updatedSpecialist) async {
+    if (_currentSpecialist == null) return false;
+    // TODO: Replace with real backend call
     await Future.delayed(const Duration(seconds: 1));
-
-    _currentDoctor = _currentDoctor!.copyWith(
-      name: name,
-      phoneNumber: phoneNumber,
-      hospital: hospital,
-      bio: bio,
-      profileImageUrl: profileImageUrl,
-    );
+    _currentSpecialist = updatedSpecialist;
     notifyListeners();
     return true;
   }
